@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trifke shop · Flash akcija</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0d; --card:#141418; --card2:#1b1b21; --line:#26262e;
+    --txt:#f4f4f6; --mute:#9a9aa6; --hot:#ff3b2f; --hot2:#ff7a1a; --lime:#d4ff3a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--txt);font-family:Inter,system-ui,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 18px}
+
+  /* ticker */
+  .ticker{background:var(--hot);color:#fff;overflow:hidden;white-space:nowrap;font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+  .ticker div{display:inline-block;padding:9px 0;animation:tick 22s linear infinite}
+  .ticker span{margin:0 18px}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* hero */
+  header{padding:56px 0 34px;position:relative;overflow:hidden}
+  header::before{content:"";position:absolute;width:520px;height:520px;right:-160px;top:-180px;background:radial-gradient(circle,rgba(255,59,47,.35),transparent 65%);pointer-events:none}
+  .brand{font-weight:700;color:var(--mute);font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+  .badge{display:inline-flex;align-items:center;gap:8px;margin-top:18px;background:rgba(212,255,58,.1);color:var(--lime);border:1px solid rgba(212,255,58,.35);padding:6px 12px;border-radius:99px;font-size:13px;font-weight:700}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--lime);animation:pulse 1.4s infinite}
+  @keyframes pulse{50%{opacity:.25}}
+  h1{font-family:"Archivo Black",sans-serif;font-size:clamp(48px,11vw,112px);line-height:.92;letter-spacing:-.02em;margin-top:16px;text-transform:uppercase}
+  h1 em{font-style:normal;background:linear-gradient(90deg,var(--hot),var(--hot2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{margin-top:18px;font-size:clamp(16px,2.2vw,19px);color:#cfcfd6;max-width:620px}
+  .lead b{color:#fff}
+  .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+  .stat b{display:block;font-family:"Archivo Black";font-size:22px}
+  .stat small{color:var(--mute);font-size:12.5px}
+
+  /* filters */
+  .bar{position:sticky;top:0;z-index:5;background:rgba(11,11,13,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);padding:12px 0}
+  .bar .wrap{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+  .chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--txt);padding:9px 15px;border-radius:99px;font:600 14px Inter;cursor:pointer}
+  .chip.on{background:var(--txt);color:#000;border-color:var(--txt)}
+
+  /* grid */
+  main{padding:28px 0 40px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;position:relative;transition:transform .15s,border-color .15s}
+  .card:hover{transform:translateY(-2px);border-color:#3a3a45}
+  .card.hl{border-color:var(--hot);background:linear-gradient(180deg,rgba(255,59,47,.1),var(--card) 45%)}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .num{font-size:12px;font-weight:800;color:var(--mute);letter-spacing:.12em;text-transform:uppercase}
+  .tag{font-size:11.5px;font-weight:800;padding:4px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:.04em;background:var(--hot);color:#fff}
+  .tag.l{background:var(--lime);color:#000}
+  .tag.g{background:#2a2a33;color:#fff}
+  .card h3{font-size:19px;font-weight:800;margin:12px 0 14px;line-height:1.2}
+  ul.items{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+  ul.items li{display:flex;justify-content:space-between;align-items:center;background:var(--card2);border-radius:11px;padding:10px 12px;font-weight:600;font-size:15px}
+  ul.items li span{color:var(--mute);font-weight:700;font-size:14px}
+  .tiers{display:flex;gap:6px;margin-bottom:14px}
+  .tier{flex:1;border:1px solid var(--line);background:var(--card2);color:var(--txt);border-radius:11px;padding:9px 4px;font:700 14px Inter;cursor:pointer}
+  .tier.on{border-color:var(--hot);background:rgba(255,59,47,.15)}
+  .price{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding-top:14px;border-top:1px dashed var(--line)}
+  .price b{font-family:"Archivo Black";font-size:32px;line-height:1;letter-spacing:-.01em}
+  .price b small{font-family:Inter;font-weight:700;font-size:15px;color:var(--mute);margin-left:4px}
+  .per{font-size:12.5px;color:var(--lime);font-weight:700;text-align:right}
+  .cta{margin-top:14px;width:100%;border:0;border-radius:12px;padding:13px;font:800 15px Inter;cursor:pointer;background:var(--txt);color:#000;transition:background .15s}
+  .card.hl .cta{background:linear-gradient(90deg,var(--hot),var(--hot2));color:#fff}
+  .cta.ok{background:var(--lime)!important;color:#000!important}
+
+  /* how */
+  .how{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:12px 0 44px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+  .step i{font-style:normal;font-family:"Archivo Black";font-size:28px;color:var(--hot)}
+  .step h4{margin:8px 0 4px;font-size:16px}
+  .step p{color:var(--mute);font-size:14.5px}
+  h2{font-family:"Archivo Black";font-size:clamp(28px,5vw,40px);text-transform:uppercase;margin-bottom:14px}
+
+  .final{background:linear-gradient(120deg,var(--hot),var(--hot2));border-radius:24px;padding:34px 26px;text-align:center;margin-bottom:40px}
+  .final h2{color:#fff;margin-bottom:8px}
+  .final p{color:#ffe9e4;font-weight:500;max-width:520px;margin:0 auto}
+  footer{color:var(--mute);font-size:13px;text-align:center;padding:0 0 40px}
+  .empty{display:none;color:var(--mute);text-align:center;padding:30px}
+</style>
+</head>
+<body>
+
+<div class="ticker"><div id="tk"></div></div>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Trifke shop</div>
+    <div class="badge"><span class="dot"></span>Akcija je aktivna · dok traju zalihe</div>
+    <h1>Flash<br><em>sale</em> 🚀</h1>
+    <p class="lead">13 gotovih paketa po cenama koje <b>nećeš videti u redovnom cenovniku</b>. Uzmi više komada, plati manje po komadu i <b>zaradi više na svakoj prodaji</b>.</p>
+    <div class="stats">
+      <div class="stat"><b>13</b><small>akcijskih paketa</small></div>
+      <div class="stat"><b>od 7.000</b><small>rsd ulaz u akciju</small></div>
+      <div class="stat"><b>do 11 kom</b><small>u jednom paketu</small></div>
+    </div>
+  </div>
+</header>
+
+<nav class="bar"><div class="wrap" id="filters"></div></nav>
+
+<main>
+  <div class="wrap">
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty">Nema paketa u ovoj kategoriji.</p>
+  </div>
+</main>
+
+<section class="wrap">
+  <h2>Kako poručuješ</h2>
+  <div class="how">
+    <div class="step"><i>01</i><h4>Izaberi paket</h4><p>Pogledaj opcije gore i nađi kombinaciju koja ti odgovara za tvoje kupce.</p></div>
+    <div class="step"><i>02</i><h4>Kopiraj poruku</h4><p>Klikni „Uzimam ovaj paket" i poruka sa brojem opcije i cenom ide u clipboard.</p></div>
+    <div class="step"><i>03</i><h4>Pošalji nam je</h4><p>Nalepi poruku u DM ili Viber, potvrdimo stanje i šaljemo paket.</p></div>
+  </div>
+
+  <div class="final">
+    <h2>Ne čekaj kraj akcije</h2>
+    <p>Akcijske cene važe dok ima robe na stanju. Kad nestane, vraćamo se na redovan cenovnik.</p>
+  </div>
+</section>
+
+<footer>Trifke shop · akcijske cene su u dinarima i važe za pakete u celini.</footer>
+
+<script>
+const A = "Air 2/3/4/Pro2";
+const P = [
+  {n:1, t:"Max + Air mix", tags:["max","mix"], items:[["Max",1],["Air 5",1],[A,2]], price:16000},
+  {n:2, t:"Max + veliki Air mix", tags:["max","mix"], items:[["Max",1],["Air 5",2],[A,3]], price:18500, badge:["Najviše za pare","l"]},
+  {n:3, t:"Max ORG + Air 5", tags:["max"], items:[["Max ORG",1],["Air 5",3]], price:17000},
+  {n:4, t:"Max ORG + Air po izboru", tags:["max"], tiers:[[2,13500],[3,14500],[5,16000]], base:[["Max ORG",1]], tierItem:A, badge:["Biraš količinu","g"]},
+  {n:5, t:"Mega paket", tags:["max","mix"], items:[["Max ORG",1],["Air 5",5],[A,5]], price:28000, badge:["🔥 Najveći paket"], hl:true},
+  {n:6, t:"Air 5 duo", tags:["air"], items:[["Air 5",2]], price:7000, badge:["Najlakši ulaz","g"]},
+  {n:7, t:"Air 5 trio", tags:["air"], items:[["Air 5",3]], price:9500},
+  {n:8, t:"Air 5 × 5", tags:["air"], items:[["Air 5",5]], price:13000, badge:["Hit"], hl:true},
+  {n:9, t:"Air mix 2 + 2", tags:["air","mix"], items:[["Air 5",2],[A,2]], price:8500},
+  {n:10, t:"Air mix 3 + 3", tags:["air","mix"], items:[["Air 5",3],[A,3]], price:10800, badge:["Top odnos","l"]},
+  {n:11, t:"Pro 3 + Air paket", tags:["air","mix"], items:[[A,5],["Pro 3",2]], price:8800, badge:["Najjeftinije po kom"], hl:true},
+  {n:12, t:"Max + Air 5 + Pro 2", tags:["max","mix"], items:[["Max",1],["Air 5",2],["Pro 2",2]], price:18800},
+  {n:13, t:"Max + Pro 3", tags:["max"], items:[["Pro 3",2],["Max",1]], price:15500},
+];
+const F = [["all","Svi paketi"],["max","Sa Max-om"],["air","Samo AirPods"],["mix","Mix paketi"]];
+const fmt = n => n.toLocaleString("sr-RS").replace(/,/g,".");
+let cur = "all";
+
+document.getElementById("tk").innerHTML =
+  Array(2).fill("<span>⚡ Flash sale</span><span>13 paketa</span><span>Cene od 7.000 rsd</span><span>Dok traju zalihe</span><span>⚡ Trifke shop</span><span>Više komada = manja cena</span>").join("");
+
+function itemsHTML(items){return items.map(([a,k])=>`<li>${a}<span>${k} kom</span></li>`).join("")}
+
+function card(p){
+  const el = document.createElement("article");
+  el.className = "card"+(p.hl?" hl":"");
+  el.dataset.tags = p.tags.join(" ");
+  const badge = p.badge ? `<span class="tag ${p.badge[1]||""}">${p.badge[0]}</span>` : "";
+  el.innerHTML = `<div class="top"><span class="num">Opcija ${p.n}</span>${badge}</div><h3>${p.t}</h3>`;
+  const body = document.createElement("div");
+  body.style.cssText = "display:flex;flex-direction:column;flex:1";
+  el.appendChild(body);
+  let sel = 0;
+  const render = () => {
+    let items = p.items, price = p.price, tiersH = "";
+    if (p.tiers){
+      const [k,pr] = p.tiers[sel];
+      items = [...p.base,[p.tierItem,k]]; price = pr;
+      tiersH = `<div class="tiers">${p.tiers.map(([k],i)=>`<button class="tier ${i===sel?"on":""}" data-i="${i}">${k} kom</button>`).join("")}</div>`;
+    }
+    const kom = items.reduce((s,[,k])=>s+k,0);
+    const per = !items.some(([a])=>a.startsWith("Max")) ? `≈ ${fmt(Math.round(price/kom))} rsd/kom` : `${kom} kom ukupno`;
+    body.innerHTML = `${tiersH}<ul class="items">${itemsHTML(items)}</ul>
+      <div class="price"><b>${fmt(price)}<small>rsd</small></b><span class="per">${per}</span></div>
+      <button class="cta">Uzimam ovaj paket</button>`;
+    body.querySelectorAll(".tier").forEach(b=>b.onclick=()=>{sel=+b.dataset.i;render()});
+    const cta = body.querySelector(".cta");
+    cta.onclick = async () => {
+      const list = items.map(([a,k])=>`${a} x${k}`).join(", ");
+      const msg = `Zdravo! Uzimam Opciju ${p.n} sa akcije (${list}) za ${fmt(price)} rsd.`;
+      try{ await navigator.clipboard.writeText(msg); cta.textContent="✓ Poruka kopirana, pošalji nam je"; }
+      catch(e){ cta.textContent=`Napiši nam: „Opcija ${p.n}"`; }
+      cta.classList.add("ok");
+      setTimeout(()=>{cta.textContent="Uzimam ovaj paket";cta.classList.remove("ok")},2600);
+    };
+  };
+  render();
+  return el;
+}
+
+const grid = document.getElementById("grid");
+P.forEach(p=>grid.appendChild(card(p)));
+
+const fw = document.getElementById("filters");
+F.forEach(([k,l])=>{
+  const b=document.createElement("button");
+  b.className="chip"+(k===cur?" on":""); b.textContent=l;
+  b.onclick=()=>{cur=k;fw.querySelectorAll(".chip").forEach(c=>c.classList.remove("on"));b.classList.add("on");
+    let shown=0;
+    grid.querySelectorAll(".card").forEach(c=>{const v=k==="all"||c.dataset.tags.includes(k);c.style.display=v?"":"none";shown+=v});
+    document.getElementById("empty").style.display=shown?"none":"block";};
+  fw.appendChild(b);
+});
+</script>
+</body>
+</html>
